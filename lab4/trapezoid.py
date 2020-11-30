@@ -63,7 +63,7 @@ def show_plot(fuzzy_sets, fuzzy_colors, universal_set):
 
 
 def create_accessory_table(fuzzy_sets, clear_time_series, universal_set):
-    accessory_table = [[0] * len(fuzzy_sets)] * len(clear_time_series)
+    accessory_table = [list() for _ in range(len(clear_time_series))]
     column = 0
     for rating, borders in fuzzy_sets.items():
         accessory_table[0].insert(column, rating)
@@ -76,6 +76,8 @@ def create_accessory_table(fuzzy_sets, clear_time_series, universal_set):
                 x=clear_time_series[row_index][1],
                 universal_set=universal_set
             )
-            accessory_table[row_index].insert(column, q)
+            accessory_table[row_index].insert(column, round(float(q), 6))
         column += 1
     return accessory_table
+
+

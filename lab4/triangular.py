@@ -55,3 +55,22 @@ def show_plot(fuzzy_sets, fuzzy_colors, universal_set):
     plt.legend()
     plt.show()
     return
+
+
+def create_accessory_table(fuzzy_sets, clear_time_series, universal_set):
+    accessory_table = [list() for _ in range(len(clear_time_series))]
+    column = 0
+    for rating, borders in fuzzy_sets.items():
+        accessory_table[0].insert(column, rating)
+        for row_index, _ in enumerate(clear_time_series):
+            if row_index == 0:
+                continue
+            q = predict(
+                name=rating,
+                fuzzy_sets=fuzzy_sets,
+                x=clear_time_series[row_index][1],
+                universal_set=universal_set
+            )
+            accessory_table[row_index].insert(column, round(float(q), 6))
+        column += 1
+    return accessory_table

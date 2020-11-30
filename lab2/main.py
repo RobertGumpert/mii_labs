@@ -243,9 +243,9 @@ def write_report_file():
 
 def show_plot(output_centers, output_accessory):
     max_in_feature = [max(i) for i in itertools.zip_longest(*objects_table[1:len(objects_table)], fillvalue=0)]
-    plt.xlim(0, max_in_feature[0])
+    plt.xlim(0, 100)
     plt.xlabel(objects_table[0][0])
-    plt.ylim(0, max_in_feature[1])
+    plt.ylim(0, 1)
     plt.ylabel(objects_table[0][1])
     cluster_colors = dict()
     # marker="x"
@@ -272,8 +272,8 @@ def show_plot(output_centers, output_accessory):
 
 
 if __name__ == "__main__":
-    objects_table = read('test_objects.csv', objects_table)
-    accessory_table = read('test_clusters.csv', accessory_table)
+    objects_table = read('main_objects.csv', objects_table)
+    accessory_table = read('main_clusters.csv', accessory_table)
     #
     j, centers, accessory = fcm()
     write_report_file()

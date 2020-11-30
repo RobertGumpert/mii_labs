@@ -1,6 +1,8 @@
 import csv
 import random
 import numpy as np
+
+import series
 import trapezoid
 import triangular
 import matplotlib.pyplot as plt
@@ -10,10 +12,24 @@ fuzzy_sets = dict()
 scales = list()
 fuzzy_colors = dict()
 clear_time_series = list()
+#
+trapezoid_accessory_table = list()
+trapezoid_fuzzy_time_series = list()
+trapezoid_series_trends = list()
+trapezoid_intensity = list()
 
 
 def init():
-    global universal_set, fuzzy_sets, scales, fuzzy_colors
+    global universal_set, \
+        fuzzy_sets, scales, \
+        fuzzy_colors, trapezoid_accessory_table, \
+        trapezoid_fuzzy_time_series, \
+        trapezoid_intensity, \
+        trapezoid_series_trends, \
+        clear_time_series
+    #
+    clear_time_series = read('main_series.csv', clear_time_series)
+    #
     scales = ["дешево", "терпимо", "дорого", "очень дорого"]
     for scale in scales:
         color = "#" + "%06x" % random.randint(0, 0xFFFFFF)
@@ -25,18 +41,28 @@ def init():
     trapezoid_dict = dict()
     triangular_dict = dict()
     #
-    trapezoid.add_rating_linguistic_scale(30.0, 35.0, 40.0, 50.0, "дешево", trapezoid_dict, universal_set)
+    trapezoid.add_rating_linguistic_scale(30.0, 35.0, 40.0, 45.0, "дешево", trapezoid_dict, universal_set)
     trapezoid.add_rating_linguistic_scale(40.0, 45.0, 50.0, 55.0, "терпимо", trapezoid_dict, universal_set)
     trapezoid.add_rating_linguistic_scale(50.0, 55.0, 60.0, 65.0, "дорого", trapezoid_dict, universal_set)
     trapezoid.add_rating_linguistic_scale(60.0, 65.0, 70.0, 75.0, "очень дорого", trapezoid_dict, universal_set)
     #
-    triangular.add_rating_linguistic_scale(30.0, 40.0, 50.0, "дешево", triangular_dict, universal_set)
+    triangular.add_rating_linguistic_scale(30.0, 37.5, 45.0, "дешево", triangular_dict, universal_set)
     triangular.add_rating_linguistic_scale(40.0, 47.5, 55.0, "терпимо", triangular_dict, universal_set)
     triangular.add_rating_linguistic_scale(50.0, 57.5, 65.0, "дорого", triangular_dict, universal_set)
     triangular.add_rating_linguistic_scale(60.0, 67.5, 75.0, "очень дорого", triangular_dict, universal_set)
     #
     fuzzy_sets["trapezoid"] = trapezoid_dict
     fuzzy_sets["triangular"] = triangular_dict
+    #
+    trapezoid_accessory_table = trapezoid.create_accessory_table(fuzzy_sets["trapezoid"], clear_time_series,
+                                                                 universal_set)
+    trapezoid_fuzzy_time_series, trapezoid_series_trends, trapezoid_intensity = series.analysis_time_series(
+        trapezoid_accessory_table, fuzzy_sets["trapezoid"])
+    series.show_fuzzy_time_series(fuzzy_time_series_table=trapezoid_fuzzy_time_series,
+                                  clear_time_series_table=clear_time_series, fuzzy_sets=fuzzy_sets["trapezoid"])
+    series.show_series_trends(series_trends_table=trapezoid_series_trends,
+                              clear_time_series_table=clear_time_series)
+    #
     return
 
 
@@ -181,8 +207,6 @@ def read(file, data_list):
 
 if __name__ == "__main__":
     init()
-    clear_time_series = read('main_series.csv', clear_time_series)
-    trapezoid.create_accessory_table(fuzzy_sets["trapezoid"], clear_time_series, universal_set)
     print("-> введите ком.: ")
     while True:
         input_string = input()
