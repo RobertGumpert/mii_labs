@@ -2,15 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a76d90f7-8631-4496-8f14-350652783d0a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lab4/series.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lab2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lab2/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lab2/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../lab2/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lab2/report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../lab2/report.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lab4/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../lab4/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lab4/trapezoid.py" beforeDir="false" afterPath="$PROJECT_DIR$/../lab4/trapezoid.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lab4/triangular.py" beforeDir="false" afterPath="$PROJECT_DIR$/../lab4/triangular.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,7 +27,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../lab2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -84,7 +78,8 @@
       <workItem from="1606491883217" duration="4085000" />
       <workItem from="1606555784989" duration="4682000" />
       <workItem from="1606560644741" duration="2894000" />
-      <workItem from="1606646971985" duration="2106000" />
+      <workItem from="1606646971985" duration="2737000" />
+      <workItem from="1607111517321" duration="909000" />
     </task>
     <servers />
   </component>
@@ -96,13 +91,15 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/lab3$main.coverage" NAME="main Coverage Results" MODIFIED="1606733338391" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/lab3$main.coverage" NAME="main Coverage Results" MODIFIED="1607111756430" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

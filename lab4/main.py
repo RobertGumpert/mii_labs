@@ -17,6 +17,11 @@ trapezoid_accessory_table = list()
 trapezoid_fuzzy_time_series = list()
 trapezoid_series_trends = list()
 trapezoid_intensity = list()
+#
+triangular_accessory_table = list()
+triangular_fuzzy_time_series = list()
+triangular_series_trends = list()
+triangular_intensity = list()
 
 
 def init():
@@ -26,7 +31,11 @@ def init():
         trapezoid_fuzzy_time_series, \
         trapezoid_intensity, \
         trapezoid_series_trends, \
-        clear_time_series
+        clear_time_series, \
+        triangular_accessory_table, \
+        triangular_fuzzy_time_series, \
+        triangular_series_trends, \
+        triangular_intensity
     #
     clear_time_series = read('main_series.csv', clear_time_series)
     #
@@ -54,14 +63,21 @@ def init():
     fuzzy_sets["trapezoid"] = trapezoid_dict
     fuzzy_sets["triangular"] = triangular_dict
     #
+    #
+    #
     trapezoid_accessory_table = trapezoid.create_accessory_table(fuzzy_sets["trapezoid"], clear_time_series,
                                                                  universal_set)
     trapezoid_fuzzy_time_series, trapezoid_series_trends, trapezoid_intensity = series.analysis_time_series(
         trapezoid_accessory_table, fuzzy_sets["trapezoid"])
-    series.show_fuzzy_time_series(fuzzy_time_series_table=trapezoid_fuzzy_time_series,
-                                  clear_time_series_table=clear_time_series, fuzzy_sets=fuzzy_sets["trapezoid"])
-    series.show_series_trends(series_trends_table=trapezoid_series_trends,
-                              clear_time_series_table=clear_time_series)
+
+    #
+    #
+    #
+    triangular_accessory_table = triangular.create_accessory_table(fuzzy_sets["triangular"], clear_time_series,
+                                                                   universal_set)
+    triangular_fuzzy_time_series, triangular_series_trends, triangular_intensity = series.analysis_time_series(
+        triangular_accessory_table, fuzzy_sets["triangular"])
+
     #
     return
 
@@ -88,6 +104,18 @@ def init():
 #   com:[predict];args:[td,много,49]
 #
 def input_parser(input_string):
+    global universal_set, \
+        fuzzy_sets, scales, \
+        fuzzy_colors, trapezoid_accessory_table, \
+        trapezoid_fuzzy_time_series, \
+        trapezoid_intensity, \
+        trapezoid_series_trends, \
+        clear_time_series, \
+        triangular_accessory_table, \
+        triangular_fuzzy_time_series, \
+        triangular_series_trends, \
+        triangular_intensity
+    #
     split = input_string.split(";")
     com = split[0].split(":")[1]
     if com == "[show]":
@@ -100,9 +128,18 @@ def input_parser(input_string):
         if args == "td":
             trapezoid.show_plot(fuzzy_sets=fuzzy_sets["trapezoid"], fuzzy_colors=fuzzy_colors,
                                 universal_set=universal_set)
+            series.show_fuzzy_time_series(fuzzy_time_series_table=trapezoid_fuzzy_time_series,
+                                          clear_time_series_table=clear_time_series, fuzzy_sets=fuzzy_sets["trapezoid"])
+            series.show_series_trends(series_trends_table=trapezoid_series_trends,
+                                      clear_time_series_table=clear_time_series)
         if args == "tr":
             triangular.show_plot(fuzzy_sets=fuzzy_sets["triangular"], fuzzy_colors=fuzzy_colors,
                                  universal_set=universal_set)
+            series.show_fuzzy_time_series(fuzzy_time_series_table=triangular_fuzzy_time_series,
+                                          clear_time_series_table=clear_time_series,
+                                          fuzzy_sets=fuzzy_sets["triangular"])
+            series.show_series_trends(series_trends_table=triangular_series_trends,
+                                      clear_time_series_table=clear_time_series)
     if com == "[update]" or com == "[add]":
         args = split[1].split(":")[1].replace("[", "").replace("]", "").split(",")
         f = args[0]
@@ -120,6 +157,15 @@ def input_parser(input_string):
                 )
                 trapezoid.show_plot(fuzzy_sets=fuzzy_sets["trapezoid"], fuzzy_colors=fuzzy_colors,
                                     universal_set=universal_set)
+                trapezoid_accessory_table = trapezoid.create_accessory_table(fuzzy_sets["trapezoid"], clear_time_series,
+                                                                             universal_set)
+                trapezoid_fuzzy_time_series, trapezoid_series_trends, trapezoid_intensity = series.analysis_time_series(
+                    trapezoid_accessory_table, fuzzy_sets["trapezoid"])
+                series.show_fuzzy_time_series(fuzzy_time_series_table=trapezoid_fuzzy_time_series,
+                                              clear_time_series_table=clear_time_series,
+                                              fuzzy_sets=fuzzy_sets["trapezoid"])
+                series.show_series_trends(series_trends_table=trapezoid_series_trends,
+                                          clear_time_series_table=clear_time_series)
             if f == "tr":
                 triangular.update_rating_linguistic_scale(
                     a=float(args[2]),
@@ -131,6 +177,16 @@ def input_parser(input_string):
                 )
                 triangular.show_plot(fuzzy_sets=fuzzy_sets["triangular"], fuzzy_colors=fuzzy_colors,
                                      universal_set=universal_set)
+                triangular_accessory_table = triangular.create_accessory_table(fuzzy_sets["triangular"],
+                                                                               clear_time_series,
+                                                                               universal_set)
+                triangular_fuzzy_time_series, triangular_series_trends, triangular_intensity = series.analysis_time_series(
+                    triangular_accessory_table, fuzzy_sets["triangular"])
+                series.show_fuzzy_time_series(fuzzy_time_series_table=triangular_fuzzy_time_series,
+                                              clear_time_series_table=clear_time_series,
+                                              fuzzy_sets=fuzzy_sets["triangular"])
+                series.show_series_trends(series_trends_table=triangular_series_trends,
+                                          clear_time_series_table=clear_time_series)
         if com == "[add]":
             if f == "td":
                 trapezoid.add_rating_linguistic_scale(
@@ -146,6 +202,15 @@ def input_parser(input_string):
                 fuzzy_colors[name] = color
                 trapezoid.show_plot(fuzzy_sets=fuzzy_sets["trapezoid"], fuzzy_colors=fuzzy_colors,
                                     universal_set=universal_set)
+                trapezoid_accessory_table = trapezoid.create_accessory_table(fuzzy_sets["trapezoid"], clear_time_series,
+                                                                             universal_set)
+                trapezoid_fuzzy_time_series, trapezoid_series_trends, trapezoid_intensity = series.analysis_time_series(
+                    trapezoid_accessory_table, fuzzy_sets["trapezoid"])
+                series.show_fuzzy_time_series(fuzzy_time_series_table=trapezoid_fuzzy_time_series,
+                                              clear_time_series_table=clear_time_series,
+                                              fuzzy_sets=fuzzy_sets["trapezoid"])
+                series.show_series_trends(series_trends_table=trapezoid_series_trends,
+                                          clear_time_series_table=clear_time_series)
             if f == "tr":
                 triangular.add_rating_linguistic_scale(
                     a=float(args[2]),
@@ -159,6 +224,16 @@ def input_parser(input_string):
                 fuzzy_colors[name] = color
                 triangular.show_plot(fuzzy_sets=fuzzy_sets["triangular"], fuzzy_colors=fuzzy_colors,
                                      universal_set=universal_set)
+                triangular_accessory_table = triangular.create_accessory_table(fuzzy_sets["triangular"],
+                                                                               clear_time_series,
+                                                                               universal_set)
+                triangular_fuzzy_time_series, triangular_series_trends, triangular_intensity = series.analysis_time_series(
+                    triangular_accessory_table, fuzzy_sets["triangular"])
+                series.show_fuzzy_time_series(fuzzy_time_series_table=triangular_fuzzy_time_series,
+                                              clear_time_series_table=clear_time_series,
+                                              fuzzy_sets=fuzzy_sets["triangular"])
+                series.show_series_trends(series_trends_table=triangular_series_trends,
+                                          clear_time_series_table=clear_time_series)
     if com == "[predict]":
         args = split[1].split(":")[1].replace("[", "").replace("]", "").split(",")
         f = args[0]
