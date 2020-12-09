@@ -128,6 +128,7 @@ def input_parser(input_string):
         args = split[1].split(":")[1].replace("[", "").replace("]", "").split(",")
         n = int(args[2])
         fit_type = args[1]
+        predict = None
         if args[0] == "td":
             if fit_type == "nvr":
                 songModel = song.SongModel(
@@ -186,6 +187,26 @@ def input_parser(input_string):
                 songModel.fit(triangular_series_trends)
                 predict = songModel.predict_next(nvr=triangular_fuzzy_time_series)
                 print(predict)
+        min_ = float(0xFFFFFF)
+        next_ = 0.0
+        for deep, info in predict.items():
+            if info["mape"] < min_:
+                min_ = info["mape"]
+                next_ = info["predict"]
+        lst_ind = clear_time_series[-1][0] + 1
+        clear_time_series.append(
+            [lst_ind, next_]
+        )
+        trapezoid_accessory_table = trapezoid.create_accessory_table(fuzzy_sets["trapezoid"], clear_time_series,
+                                                                     universal_set)
+        trapezoid_fuzzy_time_series, trapezoid_series_trends, trapezoid_intensity = series.analysis_time_series(
+            trapezoid_accessory_table, fuzzy_sets["trapezoid"], clear_time_series)
+
+        triangular_accessory_table = triangular.create_accessory_table(fuzzy_sets["triangular"], clear_time_series,
+                                                                       universal_set)
+        triangular_fuzzy_time_series, triangular_series_trends, triangular_intensity = series.analysis_time_series(
+            triangular_accessory_table, fuzzy_sets["triangular"], clear_time_series)
+
     if com == "[show]":
         args = split[1].split(":")[1].replace("[", "").replace("]", "")
         if args == "all":
@@ -208,6 +229,8 @@ def input_parser(input_string):
                                           fuzzy_sets=fuzzy_sets["triangular"])
             series.show_series_trends(series_trends_table=triangular_series_trends,
                                       clear_time_series_table=clear_time_series)
+
+
     if com == "[update]" or com == "[add]":
         args = split[1].split(":")[1].replace("[", "").replace("]", "").split(",")
         f = args[0]

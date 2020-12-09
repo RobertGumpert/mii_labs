@@ -1,4 +1,5 @@
 import enum
+import pprint
 
 
 class ExploredField(enum.Enum):
@@ -46,10 +47,7 @@ class SongModel(object):
             return rules
 
         def base_is_describe_model(rules_, deep_):
-            last_value_in_series = ""
-            for prev in range(0, deep_):
-                index = (prev + 1) * (-1)
-                last_value_in_series += series[index]
+            last_value_in_series = self.__get_last_value_in_series(deep_, series)
             for rule in rules_:
                 if rule["left"] == last_value_in_series:
                     return True
@@ -59,6 +57,8 @@ class SongModel(object):
             base_rules = create_base_rules(deep)
             if base_is_describe_model(base_rules, deep) is True:
                 self.all_rule_bases[deep] = base_rules
+        pprint.pprint(self.explored_series)
+        pprint.pprint(self.all_rule_bases)
         return
 
     def predict_next(self, nvr=None):
@@ -71,12 +71,13 @@ class SongModel(object):
     def __predict_nvr(self):
         result = dict()
         for deep, base in self.all_rule_bases.items():
-            last_value_in_series = self.__get_last_value_in_series(deep)
+
+            last_value_in_series_ = self.__get_last_value_in_series(deep, self.explored_series)
             predicted_values = list()
             rule_indices = list()
             mape_list = list()
             for index, rule in enumerate(base):
-                if rule["left"] == last_value_in_series:
+                if rule["left"] == last_value_in_series_:
                     predict_value = self.__centroid(rule["right"])
                     if predict_value is None:
                         continue
@@ -84,9 +85,12 @@ class SongModel(object):
                     predicted_values.append(predict_value)
                     mape_list.append(self.__get_mape(predict_value))
             min_mape_index = min(range(len(mape_list)), key=mape_list.__getitem__)
+            # print(len(self.clear_time_series))
+            # if len(self.clear_time_series) == 13 and deep == 2:
+            #     print()
             result[deep] = dict(
                 predict=predicted_values[min_mape_index],
-                score=base[min_mape_index]["right"],
+                score=base[rule_indices[min_mape_index]]["right"],
                 mape=mape_list[min_mape_index]
             )
         return result
@@ -106,11 +110,11 @@ class SongModel(object):
             if step_ < 0 and self.fuzzy_scores[0] == last_fuzzy_score:
                 return last_fuzzy_score
             if step_ < 0 and self.fuzzy_scores[0] != last_fuzzy_score:
-                return last_fuzzy_score[index_score - 1]
+                return self.fuzzy_scores[index_score - 1]
             return
 
         for deep, base in self.all_rule_bases.items():
-            last_value_in_series = self.__get_last_value_in_series(deep)
+            last_value_in_series = self.__get_last_value_in_series(deep, self.explored_series)
             predicted_values = list()
             rule_indices = list()
             fuzzy_scores = list()
@@ -149,11 +153,11 @@ class SongModel(object):
         predict = sum_mult / sum_accessory
         return predict
 
-    def __get_last_value_in_series(self, deep):
+    def __get_last_value_in_series(self, deep, series):
         last_value_in_series = ""
-        for prev in range(0, deep):
-            index = (prev + 1) * (-1)
-            last_value_in_series += self.explored_series[index]
+        for prev in range((len(series) - deep), len(series)):
+            index = (len(series) - prev) * (-1)
+            last_value_in_series += series[index]
         return last_value_in_series
 
     def __get_mape(self, predicted_value):
