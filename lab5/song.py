@@ -65,6 +65,7 @@ class SongModel(object):
         if self.explored_field.value is ExploredField.NVR.value:
             return self.__predict_nvr()
         if self.explored_field.value is ExploredField.Trends.value:
+            pprint.pprint(nvr)
             return self.__predict_trends(nvr)
         return
 
@@ -135,7 +136,8 @@ class SongModel(object):
             result[deep] = dict(
                 predict=predicted_values[min_mape_index],
                 score=fuzzy_scores[min_mape_index],
-                mape=mape_list[min_mape_index]
+                mape=mape_list[min_mape_index],
+                trend=base[rule_indices[min_mape_index]]["right"]
             )
         return result
 
