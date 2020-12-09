@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a76d90f7-8631-4496-8f14-350652783d0a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="c024cc9c-94eb-4eb5-a8d1-cea77c681ff9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/song.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab6/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab6/read.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lab3/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab4/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../lab4/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab4/main_series.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../lab4/main_series.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab4/series.py" beforeDir="false" afterPath="$PROJECT_DIR$/../lab4/series.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,12 +26,11 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectId" id="1ksaim8Iv9a7mkbp730kD8kkDQj" />
+  <component name="ProjectId" id="1lQ3bdsUgMsxa46wQkAEUqcpOqr" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../lab4" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/main.py" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -41,13 +46,13 @@
   </component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="lab3" />
+      <module name="lab5" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Labs\nlins\lab3\venv\Scripts\python.exe" />
+      <option name="SDK_HOME" value="C:\Labs\mii_labs\lab5\venv\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -68,17 +73,12 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a76d90f7-8631-4496-8f14-350652783d0a" name="Default Changelist" comment="" />
-      <created>1606491881934</created>
+      <changelist id="c024cc9c-94eb-4eb5-a8d1-cea77c681ff9" name="Default Changelist" comment="" />
+      <created>1607515560998</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1606491881934</updated>
-      <workItem from="1606491883217" duration="4085000" />
-      <workItem from="1606555784989" duration="4682000" />
-      <workItem from="1606560644741" duration="2894000" />
-      <workItem from="1606646971985" duration="2737000" />
-      <workItem from="1607111517321" duration="910000" />
-      <workItem from="1607158539262" duration="646000" />
+      <updated>1607515560998</updated>
+      <workItem from="1607515562212" duration="21165000" />
     </task>
     <servers />
   </component>
@@ -90,15 +90,24 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/song.py</url>
+          <line>135</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/lab3$main.coverage" NAME="main Coverage Results" MODIFIED="1607111756430" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/lab5$main.coverage" NAME="main Coverage Results" MODIFIED="1607539193382" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

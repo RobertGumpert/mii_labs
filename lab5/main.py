@@ -1,10 +1,10 @@
 import csv
 import random
 import numpy as np
-
 import series
 import trapezoid
 import triangular
+import song
 import matplotlib.pyplot as plt
 
 universal_set = list()
@@ -95,6 +95,12 @@ def init():
 # com:[predict];args:[tr,name,x]     - предсказать, треугольник
 # com:[predict];args:[td,name,x]     - предсказать, трапеции
 #
+# com:[fit];args:[td,nvr,n]
+# com:[fit];args:[td,trends,n]
+#
+# com:[fit];args:[tr,nvr,n]
+# com:[fit];args:[tr,trends,n]
+#
 # Example:
 #   com:[add];args:[td,много,70,75,80,85]
 #   com:[update];args:[td,много,40,75,80,90]
@@ -118,6 +124,68 @@ def input_parser(input_string):
     #
     split = input_string.split(";")
     com = split[0].split(":")[1]
+    if com == "[fit]":
+        args = split[1].split(":")[1].replace("[", "").replace("]", "").split(",")
+        n = int(args[2])
+        fit_type = args[1]
+        if args[0] == "td":
+            if fit_type == "nvr":
+                songModel = song.SongModel(
+                    max_learn_deep=n,
+                    clear_time_series=clear_time_series,
+                    accessory_table=trapezoid_accessory_table,
+                    fuzzy_scores=trapezoid_accessory_table[0],
+                    explored_field=song.ExploredField.NVR,
+                    rule_convert_from_trend_to_score=None
+                )
+                songModel.fit(trapezoid_fuzzy_time_series)
+                predict = songModel.predict_next()
+                print(predict)
+            if fit_type == "trends":
+                songModel = song.SongModel(
+                    max_learn_deep=2,
+                    clear_time_series=clear_time_series,
+                    accessory_table=trapezoid_accessory_table,
+                    fuzzy_scores=trapezoid_accessory_table[0],
+                    explored_field=song.ExploredField.Trends,
+                    rule_convert_from_trend_to_score=dict(
+                        удешевление=1,
+                        удорожание=-1,
+                        стабильность=0
+                    )
+                )
+                songModel.fit(trapezoid_series_trends)
+                predict = songModel.predict_next(nvr=trapezoid_fuzzy_time_series)
+                print(predict)
+        if args[0] == "tr":
+            if fit_type == "nvr":
+                songModel = song.SongModel(
+                    max_learn_deep=n,
+                    clear_time_series=clear_time_series,
+                    accessory_table=triangular_accessory_table,
+                    fuzzy_scores=triangular_accessory_table[0],
+                    explored_field=song.ExploredField.NVR,
+                    rule_convert_from_trend_to_score=None
+                )
+                songModel.fit(triangular_fuzzy_time_series)
+                predict = songModel.predict_next()
+                print(predict)
+            if fit_type == "trends":
+                songModel = song.SongModel(
+                    max_learn_deep=2,
+                    clear_time_series=clear_time_series,
+                    accessory_table=triangular_accessory_table,
+                    fuzzy_scores=triangular_accessory_table[0],
+                    explored_field=song.ExploredField.Trends,
+                    rule_convert_from_trend_to_score=dict(
+                        удешевление=1,
+                        удорожание=-1,
+                        стабильность=0
+                    )
+                )
+                songModel.fit(triangular_series_trends)
+                predict = songModel.predict_next(nvr=triangular_fuzzy_time_series)
+                print(predict)
     if com == "[show]":
         args = split[1].split(":")[1].replace("[", "").replace("]", "")
         if args == "all":

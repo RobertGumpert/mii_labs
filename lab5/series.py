@@ -47,10 +47,11 @@ def analysis_time_series(accessory_table, fuzzy_sets, clear_time_series):
             val = clear_time_series[row_index][1]
             last_fuzzy_set = fuzzy_sets[accessory_table[0][-1]]
             first_fuzzy_set = fuzzy_sets[accessory_table[0][0]]
+            last_border = "d"
             if "d" not in first_fuzzy_set:
-                fuzzy_time_series_table[row_index - 1] = None
-                continue
-            from_last = val - last_fuzzy_set["d"]
+                last_border = "c"
+
+            from_last = val - last_fuzzy_set[last_border]
             if from_last > 0:
                 fuzzy_time_series_table[row_index - 1] = accessory_table[0][-1]
             else:
