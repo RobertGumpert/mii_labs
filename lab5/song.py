@@ -86,9 +86,6 @@ class SongModel(object):
                     predicted_values.append(predict_value)
                     mape_list.append(self.__get_mape(predict_value))
             min_mape_index = min(range(len(mape_list)), key=mape_list.__getitem__)
-            # print(len(self.clear_time_series))
-            # if len(self.clear_time_series) == 13 and deep == 2:
-            #     print()
             result[deep] = dict(
                 predict=predicted_values[min_mape_index],
                 score=base[rule_indices[min_mape_index]]["right"],
